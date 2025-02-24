@@ -1,0 +1,14 @@
+{
+    "name": "storm/project",
+    "type": "project",
+    "require": {
+        "storm_bin/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true       
+}
