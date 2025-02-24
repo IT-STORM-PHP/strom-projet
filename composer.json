@@ -1,5 +1,5 @@
 {
-    "name": "storm/project", 
+    "name": "storm_bin/project", 
     "type": "project",
     "require": {
         "storm_bin/framework": "*"
