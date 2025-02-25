@@ -1,14 +1,15 @@
 {
-    "name": "storm_bin/project", 
+    "name": "storm_bin/project",
     "type": "project",
+    "description": "Un squelette de projet Storm",
     "require": {
-        "storm_bin/framework": "*"
+      "php": ">=8.0",
+      "storm_bin/framework": "^1.0"
     },
     "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true       
-}
+      "psr-4": {
+        "StormBin\\Project\\": "src/"
+      }
+    }
+  }
+  
