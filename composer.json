@@ -1,15 +1,20 @@
 {
-    "name": "storm_bin/project",
-    "type": "project",
-    "description": "Un squelette de projet Storm v0",
-    "require": {
-      "php": ">=8.0",
-      "storm_bin/framework": "^1.0"
-    },
-    "autoload": {
-      "psr-4": {
-        "StormBin\\Project\\": "src/"
-      }
+  "name": "storm_bin/project",
+  "type": "project",
+  "description": "Un squelette de projet Storm v0",
+  "require": {
+    "php": ">=8.0",
+    "storm_bin/storm": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ismael\\Storm\\": "./vendor/storm/framework/src/"
     }
-  }
-  
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "./vendor/storm_bin/storm"
+    }
+  ]
+}
