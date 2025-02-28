@@ -4,6 +4,7 @@
 
     require_once __DIR__ . '/../vendor/autoload.php';
     require_once __DIR__ . '/../routes/web.php';
+    require_once __DIR__ . '/../config/database.php';
     
     use StormBin\Package\Routes\Route;
     use StormBin\Package\MiddleWare\SessionMiddleware;
