@@ -6,5 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Ismael\\Storm\\' => array($vendorDir . '/storm/framework/src'),
+    'StormBin\\Package\\' => array($vendorDir . '/storm/framework/src'),
+    'App\\Web\\' => array($baseDir . '/app/web'),
+    'App\\Model\\' => array($baseDir . '/app/Model'),
+    'App\\Api\\' => array($baseDir . '/app/api'),
+    'App\\' => array($baseDir . '/app'),
 );

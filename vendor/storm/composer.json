@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "StormBin\\Project\\": "framework/src/"
+            "StormBin\\Package\\": "framework/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "StormBin\\Project\\Tests\\": "tests/"
+            "StormBin\\Package\\Tests\\": "tests/"
         }
     },
     "license": "MIT",

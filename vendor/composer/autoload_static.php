@@ -7,16 +7,39 @@ namespace Composer\Autoload;
 class ComposerStaticInit44e945031992793b18e1a0b8889df398
 {
     public static $prefixLengthsPsr4 = array (
-        'I' => 
+        'S' => 
         array (
-            'Ismael\\Storm\\' => 13,
+            'StormBin\\Package\\' => 17,
+        ),
+        'A' => 
+        array (
+            'App\\Web\\' => 8,
+            'App\\Model\\' => 10,
+            'App\\Api\\' => 8,
+            'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Ismael\\Storm\\' => 
+        'StormBin\\Package\\' => 
         array (
             0 => __DIR__ . '/..' . '/storm/framework/src',
+        ),
+        'App\\Web\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/web',
+        ),
+        'App\\Model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Model',
+        ),
+        'App\\Api\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/api',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 

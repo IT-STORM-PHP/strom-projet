@@ -52,8 +52,8 @@ class ComposerStaticInit269c57b12db12cfb73cc2a06612922d6
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\Console\\' => 26,
-            'StormBin\\Project\\Tests\\' => 23,
-            'StormBin\\Project\\' => 17,
+            'StormBin\\Package\\Tests\\' => 23,
+            'StormBin\\Package\\' => 17,
         ),
         'R' => 
         array (
@@ -196,11 +196,11 @@ class ComposerStaticInit269c57b12db12cfb73cc2a06612922d6
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'StormBin\\Project\\Tests\\' => 
+        'StormBin\\Package\\Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
-        'StormBin\\Project\\' => 
+        'StormBin\\Package\\' => 
         array (
             0 => __DIR__ . '/../..' . '/framework/src',
         ),
@@ -266,9 +266,9 @@ class ComposerStaticInit269c57b12db12cfb73cc2a06612922d6
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/macroable',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/collections',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
             3 => __DIR__ . '/..' . '/illuminate/support',
         ),
         'Illuminate\\Pipeline\\' => 

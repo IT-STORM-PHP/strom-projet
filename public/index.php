@@ -1,3 +1,12 @@
 <?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
-    echo "public user";
+    require_once __DIR__ . '/../vendor/autoload.php';
+    require_once __DIR__ . '/../routes/web.php';
+    
+    use StormBin\Package\Routes\Route;
+    use StormBin\Package\MiddleWare\SessionMiddleware;
+    SessionMiddleware::start();
+    Route::dispatch();
+?>

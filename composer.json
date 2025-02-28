@@ -8,7 +8,11 @@
   },
   "autoload": {
     "psr-4": {
-      "Ismael\\Storm\\": "./vendor/storm/framework/src/"
+      "StormBin\\Package\\": "vendor/storm/framework/src/",
+      "App\\":"app",
+      "App\\Api\\":"app/api",
+      "App\\Web\\":"app/web",
+      "App\\Model\\":"app/Model"
     }
   },
   "repositories": [

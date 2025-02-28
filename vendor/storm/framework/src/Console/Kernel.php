@@ -1,6 +1,6 @@
 <?php
 
-namespace StormBin\Storm\Console;
+namespace StormBin\Package\Console;
 
 
 class Kernel 
@@ -13,53 +13,77 @@ class Kernel
     ];
 
     public function handle($argv)
-    {
-        $command = $argv[1] ?? null;
-        $argument = $argv[2] ?? null;
+{
+    $command = $argv[1] ?? null;
+    $argument = $argv[2] ?? null;
+    $isApi = in_array('--api', $argv); // Vérifie si l'option --api est passée
 
-        if (!$command || !isset($this->commands[$command])) {
-            $this->showUsage();
-            exit(1);
-        }
+    if (!$command || !isset($this->commands[$command])) {
+        $this->showUsage();
+        exit(1);
+    }
 
-        $method = $this->commands[$command];
+    $method = $this->commands[$command];
+
+    // Passer l'argument et l'option --api si nécessaire
+    if ($command === 'make:controller') {
+        $this->$method($argument, $isApi);
+    } else {
         $this->$method($argument);
     }
+}
 
-    public function makeController($controllerName)
-    {
-        if (!$controllerName) {
-            echo "❌ Veuillez fournir un nom pour le contrôleur.\n";
-            exit(1);
-        }
 
-        // Mettre la première lettre en majuscule
-        $controllerName = ucfirst($controllerName);
-
-        // Chemin du fichier
-        $filePath = "app/web/Controllers/{$controllerName}.php";
-
-        // Vérifier si le contrôleur existe déjà
-        if (file_exists($filePath)) {
-            echo "❌ Le contrôleur '$controllerName' existe déjà.\n";
-            exit(1);
-        }
-
-        // Contenu du contrôleur
-        $content = "<?php\n\nnamespace App\Controllers;\n\n";
-        $content .= "use App\Controller\Controllers;\n\n";
-        $content .= "class {$controllerName} extends Controller\n{\n";
-        $content .= "    public function index()\n    {\n";
-        $content .= "        // Action par défaut\n";
-        $content .= "        echo 'Hello from {$controllerName} Controller';\n";
-        $content .= "    }\n";
-        $content .= "}\n";
-
-        // Créer le fichier du contrôleur
-        file_put_contents($filePath, $content);
-
-        echo "✅ Contrôleur '$controllerName' créé dans 'app/Controllers'.\n";
+public function makeController($controllerName, $isApi = false)
+{
+    if (!$controllerName) {
+        echo "❌ Veuillez fournir un nom pour le contrôleur.\n";
+        exit(1);
     }
+
+    // Mettre la première lettre en majuscule
+    $controllerName = ucfirst($controllerName);
+
+    // Déterminer le chemin absolu des fichiers modèles (stubs)
+    $packagePath = dirname(__DIR__, 1); // Remonte de deux niveaux pour atteindre la racine du package
+    if ($isApi) {
+        $stubPath = "$packagePath/StubFiles/Controllers/api/controller.stub";
+        $filePath = getcwd() . "/app/api/Controllers/{$controllerName}.php";
+    } else {
+        $stubPath = "$packagePath/StubFiles/Controllers/web/controller.stub";
+        $filePath = getcwd() . "/app/web/Controllers/{$controllerName}.php";
+    }
+
+    // Vérifier si le contrôleur existe déjà
+    if (file_exists($filePath)) {
+        echo "❌ Le contrôleur '$controllerName' existe déjà.\n";
+        exit(1);
+    }
+
+    // Vérifier l'existence du fichier stub
+    if (!file_exists($stubPath)) {
+        echo "❌ Le fichier modèle '$stubPath' est introuvable.\n";
+        exit(1);
+    }
+
+    // Lire et remplacer les placeholders du fichier stub
+    $content = file_get_contents($stubPath);
+    $content = str_replace('{{controllerName}}', $controllerName, $content);
+
+    // Créer le dossier s'il n'existe pas
+    if (!file_exists(dirname($filePath))) {
+        mkdir(dirname($filePath), 0777, true);
+    }
+
+    // Créer le fichier du contrôleur
+    file_put_contents($filePath, $content);
+
+    $location = $isApi ? 'app/api/Controllers' : 'app/web/Controllers';
+    echo "✅ Contrôleur '$controllerName' créé dans '$location'.\n";
+}
+
+
+
     
     protected function serve()
     {
