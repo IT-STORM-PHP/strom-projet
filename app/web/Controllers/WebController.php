@@ -3,7 +3,8 @@
 namespace App\Web\Controllers;
 
 use StormBin\Package\Controllers\Controller;
-use StormBin\Package\Views\View;
+use StormBin\Package\Views\Views;
+
 use App\Web\Models\User;
 
 class WebController extends Controller
@@ -48,4 +49,18 @@ class WebController extends Controller
         return "Utilisateur créé avec succès : " . $user->nom . " (" . $user->email . ")";
     }
     
+    public function blade(){
+        $tab = [
+            'mangue',
+            'orange',
+            'ananas',
+        ];
+        $data = [
+            "username"=>'Godwill',
+            "email"=>'godwilloussou@gmail.com',
+            'data'=>$tab,
+            'number'=>13
+        ];
+        return Views::render('index', $data);
+    }
 }
