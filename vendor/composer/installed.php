@@ -3,7 +3,7 @@
         'name' => 'storm_bin/project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '7f08a40c32c3405229d80b8bf58d0050a205de78',
+        'reference' => '079727e4648ff09c43ea749d9565bf55210df4f8',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -229,7 +229,7 @@
         'storm_bin/project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '7f08a40c32c3405229d80b8bf58d0050a205de78',
+            'reference' => '079727e4648ff09c43ea749d9565bf55210df4f8',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

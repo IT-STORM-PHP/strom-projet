@@ -8,7 +8,7 @@
 
         Route::get('/usr', [WebController::class, 'index'])->name('user.index');
 
-        Route::get('/add' ,[WebController::class, 'add']);
+        Route::post('/add' ,[WebController::class, 'add'])->name('user.store');
         Route::get('/fnd/{id}' ,[WebController::class, 'find']);
         Route::get('/blade' ,[WebController::class, 'blade']);
     });

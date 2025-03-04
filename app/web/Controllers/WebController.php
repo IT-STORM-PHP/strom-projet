@@ -5,8 +5,9 @@ namespace App\Web\Controllers;
 use StormBin\Package\Controllers\Controller;
 use StormBin\Package\Views\Views;
 
-use App\Web\Models\User;
-
+use App\Models\User;
+use Illuminate\View\View;
+use App\Models\Cc;
 class WebController extends Controller
 {
 
@@ -21,6 +22,11 @@ class WebController extends Controller
     }
     public function index()
     {
+        $cretate_task = Cc::create(
+            [
+                'title'=>'Un titre',
+            ]
+        );
         // Action par défaut
         $users = User::all();
         if ($users->isEmpty()) {
@@ -46,7 +52,7 @@ class WebController extends Controller
             'numero'  => '0123456789',
         ]);
 
-        return "Utilisateur créé avec succès : " . $user->nom . " (" . $user->email . ")";
+        return /*"Utilisateur créé avec succès : " . $user->nom . " (" . $user->email . ")"*/ Views::redirect('/test/usr');
     }
     
     public function blade(){
