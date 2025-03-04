@@ -2,7 +2,10 @@
 
     use StormBin\Package\Routes\Route;
     use App\Web\Controllers\WebController;
-    
+    use App\Api\Controllers\BackController;
+
+
+    Route::get('/api', [BackController::class, 'getInfo']);
 
     Route::group(['prefix' => '/test'], function() {
 

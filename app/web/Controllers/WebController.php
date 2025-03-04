@@ -4,7 +4,7 @@ namespace App\Web\Controllers;
 
 use StormBin\Package\Controllers\Controller;
 use StormBin\Package\Views\Views;
-
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\View\View;
 use App\Models\Cc;
@@ -22,11 +22,11 @@ class WebController extends Controller
     }
     public function index()
     {
-        $cretate_task = Cc::create(
+        /*$cretate_task = Cc::create(
             [
                 'title'=>'Un titre',
             ]
-        );
+        );*/
         // Action par défaut
         $users = User::all();
         if ($users->isEmpty()) {
