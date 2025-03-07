@@ -7,28 +7,28 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 return new class extends Migration {
     public function up()
     {
-        if (!Capsule::schema()->hasTable('ok')) {
-            Capsule::schema()->create('ok', function (Blueprint $table) {
+        if (!Capsule::schema()->hasTable('tasks')) {
+            Capsule::schema()->create('tasks', function (Blueprint $table) {
                 $table->id();
-                $table->string('test');
+                $table->text('title');
                 $table->timestamps();
                 // Ajoutez ici les autres colonnes nécessaires, par exemple :
                 // $table->string('name');
                 // $table->integer('age');
             });
-            echo "Table 'default_table' créée avec succès.\n";
+            echo "Table 'tasks' créée avec succès.\n";
         } else {
-            echo "La table 'default_table' existe déjà.\n";
+            echo "La table 'tasks' existe déjà.\n";
         }
     }
 
     public function down()
     {
-        if (Capsule::schema()->hasTable('default_table')) {
-            Capsule::schema()->dropIfExists('default_table');
-            echo "Table 'default_table' supprimée.\n";
+        if (Capsule::schema()->hasTable('tasks')) {
+            Capsule::schema()->dropIfExists('tasks');
+            echo "Table 'tasks' supprimée.\n";
         } else {
-            echo "La table 'default_table' n'existe pas.\n";
+            echo "La table 'tasks' n'existe pas.\n";
         }
     }
 };

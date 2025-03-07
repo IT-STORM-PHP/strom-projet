@@ -18,7 +18,7 @@
     @else
         <p>Different</p>
     @endif
-
+    
     <form method="POST" action="{{ route('user.store') }}">
        
         <button type="submit" class="btn btn-success ">

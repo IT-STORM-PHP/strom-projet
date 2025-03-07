@@ -4,7 +4,7 @@ namespace App\Web\Controllers;
 
 use StormBin\Package\Controllers\Controller;
 use StormBin\Package\Views\Views;
-use Carbon\Carbon;
+
 use App\Models\User;
 use Illuminate\View\View;
 use App\Models\Cc;
@@ -60,6 +60,7 @@ class WebController extends Controller
             'mangue',
             'orange',
             'ananas',
+            'ananas',
         ];
         $data = [
             "username"=>'Godwill',
@@ -68,5 +69,17 @@ class WebController extends Controller
             'number'=>13
         ];
         return Views::render('index', $data);
+    }
+
+    public function updatename($id){
+        $user = User::findOrFail($id);
+        if($user){
+            $user->nom = 'Okaaa';
+            $user->prenom = 'Okay';
+            $user->save();
+            
+            $message =  'update avec succès';
+            return $message;
+        }
     }
 }

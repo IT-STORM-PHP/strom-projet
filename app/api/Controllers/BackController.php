@@ -13,6 +13,9 @@
             $this->request = new Request();
         }
         public function getInfo() {
+            Task::create([
+                'title'=>'Un titre'
+            ]);
             $tasks = Task::all();
             $formattedTasks = [];
         

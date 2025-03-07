@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php'; // Charger les dépendances si tu utilises Composer
+    require_once __DIR__ . '/vendor/autoload.php'; // Charger les dépendances
 
-use StormBin\Package\Console\Kernel;
+    use StormBin\Package\Console\Kernel;
 
-$kernel = new Kernel();
-$kernel->handle($argv);
-    
+    $kernel = new Kernel();
+    $kernel->handle($argv);
+        

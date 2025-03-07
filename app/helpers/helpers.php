@@ -7,6 +7,14 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+/*
+if (!function_exists('base_path')) {
+    function base_path($path = '')
+    {
+        return dirname(__DIR__, 5) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+    }
+}*/
+
 if (!function_exists('route')) {
     /**
      * Génère une URL pour une route nommée.

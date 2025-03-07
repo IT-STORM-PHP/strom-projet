@@ -3,9 +3,16 @@
     use StormBin\Package\Routes\Route;
     use App\Web\Controllers\WebController;
     use App\Api\Controllers\BackController;
-
+    use StormBin\Package\Request\Request;
 
     Route::get('/api', [BackController::class, 'getInfo']);
+    Route::get('/update/{id}', [WebController::class, 'updatename']);
+
+    Route::get('/test/{id}-{idd}', function($id){
+        echo "\r nothing" . $id ;
+        echo "\n  \x1b[32mmake:migration\x1b[0m \x1b[31m<nom_migration>\x1b[0m - Créer une migration avec le nom spécifié\n"; // 'make:migration <nom_migration>' en vert
+        return ;
+    });
 
     Route::group(['prefix' => '/test'], function() {
 

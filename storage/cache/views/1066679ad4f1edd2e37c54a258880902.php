@@ -16,7 +16,7 @@
     <?php else: ?>
         <p>Different</p>
     <?php endif; ?>
-
+    
     <form method="POST" action="<?php echo e(route('user.store')); ?>">
        
         <button type="submit" class="btn btn-success ">
