@@ -4,7 +4,7 @@ namespace App\Web\Controllers;
 
 use StormBin\Package\Controllers\Controller;
 use StormBin\Package\Views\Views;
-
+use StormBin\Package\Request\Request;
 use App\Models\User;
 use Illuminate\View\View;
 use App\Models\Cc;
@@ -20,8 +20,9 @@ class WebController extends Controller
             return "Erreur : " . $e->getMessage();
         }
     }
-    public function index()
+    public function index(Request $request)
     {
+        $request->get('id');
         /*$cretate_task = Cc::create(
             [
                 'title'=>'Un titre',
