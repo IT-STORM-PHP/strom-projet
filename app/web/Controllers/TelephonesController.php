@@ -4,16 +4,15 @@ namespace App\web\Controllers;
 
 use StormBin\Package\Controllers\Controller;
 use StormBin\Package\Views\Views;
-use App\Models\Taches;
+use App\Models\Telephones;
 use StormBin\Package\Request\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-use App\Models\Utilisateurs;
-use App\Models\Migrations;
 
-class TachesController extends Controller
+
+class TelephonesController extends Controller
 {
     /**
      * Afficher la liste des ressources.
@@ -21,8 +20,8 @@ class TachesController extends Controller
     public function index()
     {
         try {
-            $items = Taches::with(['utilisateurs', 'migrations'])->get();
-            return Views::render('Taches.index', ['items' => $items]);
+            $items = Telephones::with([])->get();
+            return Views::render('Telephones.index', ['items' => $items]);
         } catch (\Exception $e) {
             Log::error('Erreur lors de la récupération des ressources : ' . $e->getMessage());
             return Views::redirect()->back()->with('error', 'Une erreur est survenue');
@@ -34,7 +33,7 @@ class TachesController extends Controller
      */
     public function create()
     {
-        return Views::render('Taches.create');
+        return Views::render('Telephones.create');
     }
 
     /**
@@ -44,13 +43,13 @@ class TachesController extends Controller
     {
         try {
             // Valider les données de la requête
-            $validatedData = $request->validate(Taches::getRules(), Taches::getMessages());
+            $validatedData = $request->validate(Telephones::getRules(), Telephones::getMessages());
 
             // Créer une nouvelle entité avec les données validées
-            $item = Taches::create($validatedData);
+            $item = Telephones::create($validatedData);
 
             // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Taches.index'))->with('success', 'Création réussie');
+            return Views::redirect(route('Telephones.index'))->with('success', 'Création réussie');
         } catch (ValidationException $e) {
             // Rediriger avec les erreurs de validation
             return Views::redirect()->back()->withErrors($e->errors())->withInput();
@@ -66,8 +65,8 @@ class TachesController extends Controller
     public function show($id)
     {
         try {
-            $item = Taches::with(['utilisateurs', 'migrations'])->findOrFail($id);
-            return Views::render('Taches.show', ['item' => $item]);
+            $item = Telephones::with([])->findOrFail($id);
+            return Views::render('Telephones.show', ['item' => $item]);
         } catch (ModelNotFoundException $e) {
             return Views::redirect()->back()->with('error', 'Ressource non trouvée');
         } catch (\Exception $e) {
@@ -82,8 +81,8 @@ class TachesController extends Controller
     public function edit($id)
     {
         try {
-            $item = Taches::with(['utilisateurs', 'migrations'])->findOrFail($id);
-            return Views::render('Taches.edit', ['item' => $item]);
+            $item = Telephones::with([])->findOrFail($id);
+            return Views::render('Telephones.edit', ['item' => $item]);
         } catch (ModelNotFoundException $e) {
             return Views::redirect()->back()->with('error', 'Ressource non trouvée');
         } catch (\Exception $e) {
@@ -99,16 +98,16 @@ class TachesController extends Controller
     {
         try {
             // Valider les données de la requête
-            $validatedData = $request->validate(Taches::getRules(), Taches::getMessages());
+            $validatedData = $request->validate(Telephones::getRules(), Telephones::getMessages());
 
             // Trouver l'entité à mettre à jour
-            $item = Taches::findOrFail($id);
+            $item = Telephones::findOrFail($id);
 
             // Mettre à jour l'entité avec les données validées
             $item->update($validatedData);
 
             // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Taches.index'))->with('success', 'Mise à jour réussie');
+            return Views::redirect(route('Telephones.index'))->with('success', 'Mise à jour réussie');
         } catch (ValidationException $e) {
             // Rediriger avec les erreurs de validation
             return Views::redirect()->back()->withErrors($e->errors())->withInput();
@@ -126,9 +125,9 @@ class TachesController extends Controller
     public function destroy($id)
     {
         try {
-            $item = Taches::findOrFail($id);
+            $item = Telephones::findOrFail($id);
             $item->delete();
-            return Views::redirect(route('Taches.index'))->with('success', 'Suppression réussie');
+            return Views::redirect(route('Telephones.index'))->with('success', 'Suppression réussie');
         } catch (ModelNotFoundException $e) {
             return Views::redirect()->back()->with('error', 'Ressource non trouvée');
         } catch (\Exception $e) {

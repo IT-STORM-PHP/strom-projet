@@ -4,23 +4,29 @@
     use App\Web\Controllers\WebController;
     use App\Api\Controllers\BackController;
     use StormBin\Package\Request\Request;
-    use App\Web\Controllers\WillsController;
+    
+    use App\Api\Controllers\TelephonesController;
 
-
-    Route::get('/taches', [WillsController::class, 'index']);
-    Route::get('/taches/create', [WillsController::class, 'create']);
-    Route::post('/taches/store', [WillsController::class, 'store']);
-    Route::get('/taches/{id}', [WillsController::class, 'show']);
-    Route::get('/taches/edit/{id}', [WillsController::class, 'edit']);
-    Route::post('/taches/update/{id}', [WillsController::class, 'update']);
-    Route::post('/del/{id}', [WillsController::class, 'destroy']);
+    Route::get('/taches', [TelephonesController::class, 'index']);
+    Route::get('/taches/create', [TelephonesController::class, 'create']);
+    Route::post('/taches/store', [TelephonesController::class, 'store']);
+    Route::get('/taches/{id}', [TelephonesController::class, 'show']);
+    Route::get('/taches/edit/{id}', [TelephonesController::class, 'edit']);
+    Route::post('/taches/update/{id}', [TelephonesController::class, 'update']);
+    Route::post('taches/del/{id}', [TelephonesController::class, 'destroy']);
 
     Route::get('/api', [BackController::class, 'getInfo']);
     Route::get('/update/{id}', [WebController::class, 'updatename']);
 
-    Route::get('/test/{id}-{idd}', function($id){
-        echo "\r nothing"  + $id;
-        echo "\n  \x1b[32mmake:migration\x1b[0m \x1b[31m<nom_migration>\x1b[0m - Créer une migration avec le nom spécifié\n"; // 'make:migration <nom_migration>' en vert
+    Route::get('/test/{id}-{idd}', function($id, $idd, Request $request){
+        echo "\r nothing" . $id . $idd . "\n";
+        $val = $request->get('test');
+        echo $val;
+        echo"<form action=\"\" method=\"get\">
+    <input type=\"text\" name=\"test\">
+    
+    <input type=\"submit\" name=\"btn\" value=\"Soumettre\">
+</form>";
         return ;
     });
 
@@ -38,5 +44,21 @@
     
 
 
+#use App\Api\Controllers\TachesController;
+use App\Web\Controllers\TachesController;
+// Routes API pour Taches
+Route::get('/api/taches', [TachesController::class, 'index']);
+Route::post('/api/taches', [TachesController::class, 'store']);
+Route::get('/api/taches/{id}', [TachesController::class, 'show']);
+Route::put('/api/taches/{id}', [TachesController::class, 'update']);
+Route::delete('/api/taches/{id}', [TachesController::class, 'destroy']);
 
-    
+// Routes pour Taches
+
+Route::get('/taches', [TachesController::class, 'index']);
+Route::get('/taches/create', [TachesController::class, 'create']);
+Route::post('/taches/store', [TachesController::class, 'store']);
+Route::get('/taches/{id}', [TachesController::class, 'show']);
+Route::get('/taches/edit/{id}', [TachesController::class, 'edit']);
+Route::post('/taches/update/{id}', [TachesController::class, 'update']);
+Route::post('/taches/del/{id}', [TachesController::class, 'destroy']);

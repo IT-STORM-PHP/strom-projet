@@ -28,13 +28,15 @@ class Taches extends Model
   'nom' => 'string|required',
   'description' => 'string|required',
   'id_user' => 'integer|required',
-  'mig' => 'integer|required',
+  'created_at' => 'nullable',
+  'updated_at' => 'nullable',
+  'mig' => 'integer|nullable',
 );
 
     // Messages d'erreur personnalisés (protégés)
     protected static $messages = array (
   'nom.string' => 'Le champ nom doit être une chaîne de caractères.',
-  'nom.required' => 'Le champ nom est obligatoire. rr',
+  'nom.required' => 'Le champ nom est obligatoire.',
   'description.string' => 'Le champ description doit être une chaîne de caractères.',
   'description.required' => 'Le champ description est obligatoire.',
   'id_user.integer' => 'Le champ id_user doit être un entier.',

@@ -7,14 +7,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-/*
-if (!function_exists('base_path')) {
-    function base_path($path = '')
-    {
-        return dirname(__DIR__, 5) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
-    }
-}*/
-
 if (!function_exists('route')) {
     /**
      * Génère une URL pour une route nommée.
@@ -143,11 +135,26 @@ if (!function_exists('redirect')) {
      * Redirige vers une URL.
      *
      * @param string $url URL de redirection.
+     * @param int $status Code HTTP (par défaut : 302).
+     * @param array $headers En-têtes HTTP supplémentaires.
+     * @return Illuminate\Http\RedirectResponse
+     */
+    function redirect(string $url, int $status = 302, array $headers = []): Illuminate\Http\RedirectResponse
+    {
+        return new Illuminate\Http\RedirectResponse($url, $status, $headers);
+    }
+}
+
+if (!function_exists('log')) {
+    /**
+     * Enregistre un message dans les logs.
+     *
+     * @param string $message Message à enregistrer.
+     * @param array $context Contexte supplémentaire.
      * @return void
      */
-    function redirect(string $url): void
+    function log(string $message, array $context = []): void
     {
-        header("Location: " . filter_var($url, FILTER_SANITIZE_URL));
-        exit();
+        Illuminate\Support\Facades\Log::info($message, $context);
     }
 }

@@ -1,3 +1,6 @@
-html {
+#sec {
     color: green;
+    font-size: 10x;
+    font: optional;
+    
 }
