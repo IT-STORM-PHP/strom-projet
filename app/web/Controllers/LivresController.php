@@ -4,16 +4,15 @@ namespace App\web\Controllers;
 
 use StormBin\Package\Controllers\Controller;
 use StormBin\Package\Views\Views;
-use App\Models\Taches;
+use App\Models\Livres;
 use StormBin\Package\Request\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-use App\Models\Utilisateurs;
-use App\Models\Migrations;
+use App\Models\Auteurs;
 
-class TachesController extends Controller
+class LivresController extends Controller
 {
     /**
      * Afficher la liste des ressources.
@@ -21,11 +20,11 @@ class TachesController extends Controller
     public function index()
     {
         try {
-            $items = Taches::with(['utilisateurs', 'migrations'])->get();
-            return Views::render('taches.index', ['items' => $items]);
+            $items = Livres::with(['auteurs'])->get();
+            return Views::render('Livres.index', ['items' => $items]);
         } catch (\Exception $e) {
             Log::error('Erreur lors de la récupération des ressources : ' . $e->getMessage());
-            return Views::redirect('google.com'); // Redirection vers une URL externe en cas d'erreur
+            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
         }
     }
 
@@ -34,7 +33,7 @@ class TachesController extends Controller
      */
     public function create()
     {
-        return Views::render('Taches.create');
+        return Views::render('Livres.create');
     }
 
     /**
@@ -44,19 +43,19 @@ class TachesController extends Controller
     {
         try {
             // Valider les données de la requête
-            $validatedData = $request->validate(Taches::getRules(), Taches::getMessages());
+            $validatedData = $request->validate(Livres::getRules(), Livres::getMessages());
 
             // Créer une nouvelle entité avec les données validées
-            $item = Taches::create($validatedData);
+            $item = Livres::create($validatedData);
 
             // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Taches.index'))->with('success', 'Création réussie');
+            return Views::redirect(route('Livres.index'))->with('success', 'Création réussie');
         } catch (ValidationException $e) {
             // Rediriger avec les erreurs de validation
-            return Views::back()->withErrors($e->errors())->withInput();
+            return Views::redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             Log::error('Erreur lors de la création de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la création');
+            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
         }
     }
 
@@ -66,14 +65,13 @@ class TachesController extends Controller
     public function show($id)
     {
         try {
-            $item = Taches::with(['utilisateurs', 'migrations'])->findOrFail($id);
-            return Views::render('taches.show', ['item' => $item]);
+            $item = Livres::with(['auteurs'])->findOrFail($id);
+            return Views::render('Livres.show', ['item' => $item]);
         } catch (ModelNotFoundException $e) {
-            Log::error('Ressource non trouvée : ' . $e->getMessage());
-            return Views::back()->with('error', 'Ressource non trouvée');
+            return Views::redirect()->back()->with('error', 'Ressource non trouvée');
         } catch (\Exception $e) {
             Log::error('Erreur lors de la récupération de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la récupération');
+            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
         }
     }
 
@@ -83,14 +81,13 @@ class TachesController extends Controller
     public function edit($id)
     {
         try {
-            $item = Taches::with(['utilisateurs', 'migrations'])->findOrFail($id);
-            return Views::render('Taches.edit', ['item' => $item]);
+            $item = Livres::with(['auteurs'])->findOrFail($id);
+            return Views::render('Livres.edit', ['item' => $item]);
         } catch (ModelNotFoundException $e) {
-            Log::error('Ressource non trouvée : ' . $e->getMessage());
-            return Views::back()->with('error', 'Ressource non trouvée');
+            return Views::redirect()->back()->with('error', 'Ressource non trouvée');
         } catch (\Exception $e) {
             Log::error('Erreur lors de la récupération de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la récupération');
+            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
         }
     }
 
@@ -101,25 +98,24 @@ class TachesController extends Controller
     {
         try {
             // Valider les données de la requête
-            $validatedData = $request->validate(Taches::getRules(), Taches::getMessages());
+            $validatedData = $request->validate(Livres::getRules(), Livres::getMessages());
 
             // Trouver l'entité à mettre à jour
-            $item = Taches::findOrFail($id);
+            $item = Livres::findOrFail($id);
 
             // Mettre à jour l'entité avec les données validées
             $item->update($validatedData);
 
             // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Taches.index'))->with('success', 'Mise à jour réussie');
+            return Views::redirect(route('Livres.index'))->with('success', 'Mise à jour réussie');
         } catch (ValidationException $e) {
             // Rediriger avec les erreurs de validation
-            return Views::back()->withErrors($e->errors())->withInput();
+            return Views::redirect()->back()->withErrors($e->errors())->withInput();
         } catch (ModelNotFoundException $e) {
-            Log::error('Ressource non trouvée : ' . $e->getMessage());
-            return Views::back()->with('error', 'Ressource non trouvée');
+            return Views::redirect()->back()->with('error', 'Ressource non trouvée');
         } catch (\Exception $e) {
             Log::error('Erreur lors de la mise à jour de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la mise à jour');
+            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
         }
     }
 
@@ -129,17 +125,14 @@ class TachesController extends Controller
     public function destroy($id)
     {
         try {
-            $item = Taches::findOrFail($id);
+            $item = Livres::findOrFail($id);
             $item->delete();
-
-            // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Taches.index'))->with('success', 'Suppression réussie');
+            return Views::redirect(route('Livres.index'))->with('success', 'Suppression réussie');
         } catch (ModelNotFoundException $e) {
-            Log::error('Ressource non trouvée : ' . $e->getMessage());
-            return Views::back()->with('error', 'Ressource non trouvée');
+            return Views::redirect()->back()->with('error', 'Ressource non trouvée');
         } catch (\Exception $e) {
             Log::error('Erreur lors de la suppression de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la suppression');
+            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
         }
     }
 }

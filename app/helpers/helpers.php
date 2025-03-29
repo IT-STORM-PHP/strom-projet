@@ -17,7 +17,16 @@ if (!function_exists('route')) {
      */
     function route(string $name, array $params = []): string
     {
-        return Route::route($name, $params);
+        // Récupérer l'URI de la route nommée
+        $uri = Route::route($name);
+
+        // Remplacer les paramètres dynamiques dans l'URI
+        foreach ($params as $key => $value) {
+            $uri = str_replace('{' . $key . '}', $value, $uri);
+        }
+
+        // Retourner l'URL complète
+        return '//' . $_SERVER['HTTP_HOST'] . $uri;
     }
 }
 

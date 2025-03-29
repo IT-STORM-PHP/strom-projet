@@ -61,4 +61,27 @@ Route::post('/taches/store', [TachesController::class, 'store']);
 Route::get('/taches/{id}', [TachesController::class, 'show']);
 Route::get('/taches/edit/{id}', [TachesController::class, 'edit']);
 Route::post('/taches/update/{id}', [TachesController::class, 'update']);
-Route::post('/taches/del/{id}', [TachesController::class, 'destroy']);
+Route::post('/taches/del/{id}', [TachesController::class, 'destroy']);use App\Web\Controllers\LivresController;
+
+// Routes pour Livres
+Route::get('/livres', [LivresController::class, 'index']);
+Route::get('/livres/create', [LivresController::class, 'create']);
+Route::post('/livres/store', [LivresController::class, 'store']);
+Route::get('/livres/{id}', [LivresController::class, 'show']);
+Route::get('/livres/edit/{id}', [LivresController::class, 'edit']);
+Route::post('/livres/update/{id}', [LivresController::class, 'update']);
+Route::post('/livres/del/{id}', [LivresController::class, 'destroy']);
+
+use App\Web\Controllers\CoursesController;
+
+// Routes pour Courses
+Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
+Route::get('/courses/create', [CoursesController::class, 'create'])->name('courses.create');
+Route::post('/courses/store', [CoursesController::class, 'store'])->name('courses.store');
+Route::get('/courses/{id}', [CoursesController::class, 'show'])->name('courses.show');
+Route::get('/courses/edit/{id}', [CoursesController::class, 'edit'])->name('courses.edit');
+Route::post('/courses/update/{id}', [CoursesController::class, 'update'])->name('courses.update');
+Route::post('/courses/del/{id}', [CoursesController::class, 'destroy'])->name('courses.destroy');
+Route::get('/courses/error', function(){
+    echo "bsqdfj";
+})->name('courses.errors');
