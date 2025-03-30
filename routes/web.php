@@ -102,3 +102,27 @@ Route::get('/produits/edit/{id}', [ProduitsController::class, 'edit'])->name('pr
 Route::post('/produits/update/{id}', [ProduitsController::class, 'update'])->name('produits.update');
 Route::post('/produits/del/{id}', [ProduitsController::class, 'destroy'])->name('produits.destroy');
 Route::post('/produits/errors', [ProduitsController::class, 'errors'])->name('produits.errors');
+
+use App\Web\Controllers\EtudiantsController;
+
+// Routes pour Etudiants
+Route::get('/etudiants', [EtudiantsController::class, 'index'])->name('etudiants.index');
+Route::get('/etudiants/create', [EtudiantsController::class, 'create'])->name('etudiants.create');
+Route::post('/etudiants/store', [EtudiantsController::class, 'store'])->name('etudiants.store');
+Route::get('/etudiants/{id}', [EtudiantsController::class, 'show'])->name('etudiants.show');
+Route::get('/etudiants/edit/{id}', [EtudiantsController::class, 'edit'])->name('etudiants.edit');
+Route::post('/etudiants/update/{id}', [EtudiantsController::class, 'update'])->name('etudiants.update');
+Route::post('/etudiants/del/{id}', [EtudiantsController::class, 'destroy'])->name('etudiants.destroy');
+Route::post('/etudiants/errors', [EtudiantsController::class, 'errors'])->name('etudiants.errors');
+
+use App\Web\Controllers\NotesController;
+
+// Routes pour Notes
+Route::get('/notes', [NotesController::class, 'index'])->name('notes.index');
+Route::get('/notes/create', [NotesController::class, 'create'])->name('notes.create');
+Route::post('/notes/store', [NotesController::class, 'store'])->name('notes.store');
+Route::get('/notes/{id}', [NotesController::class, 'show'])->name('notes.show');
+Route::get('/notes/edit/{id}', [NotesController::class, 'edit'])->name('notes.edit');
+Route::post('/notes/update/{id}', [NotesController::class, 'update'])->name('notes.update');
+Route::post('/notes/del/{id}', [NotesController::class, 'destroy'])->name('notes.destroy');
+Route::post('/notes/errors', [NotesController::class, 'errors'])->name('notes.errors');

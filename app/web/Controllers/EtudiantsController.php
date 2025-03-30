@@ -4,23 +4,21 @@ namespace App\web\Controllers;
 
 use StormBin\Package\Controllers\Controller;
 use StormBin\Package\Views\Views;
-use App\Models\Produits;
+use App\Models\Etudiants;
 use StormBin\Package\Request\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-use App\Models\Categories;
-use App\Models\Fournisseurs;
-use App\Models\Clients;
+use App\Models\Notes;
 
-class ProduitsController extends Controller
+class EtudiantsController extends Controller
 {
     public function index()
     {
         try {
-            $items = Produits::with(['categories', 'fournisseurs', 'clients'])->paginate(5);
-            return Views::render('Produits.index', ['items' => $items]);
+            $items = Etudiants::with(['notes'])->paginate(10);
+            return Views::render('Etudiants.index', ['items' => $items]);
             
         } catch (\Exception $e) {
             Log::error('Index error: ' . $e->getMessage());
@@ -31,20 +29,21 @@ class ProduitsController extends Controller
 
     public function create()
     {
-        return Views::render('Produits.create');
+        $notes = Notes::all();
+        return Views::render('Etudiants.create', ['notes'=>$notes]);
     }
 
     public function store(Request $request)
     {
         try {
             $validated = $request->validate(
-                Produits::getRules(),
-                Produits::getMessages()
+                Etudiants::getRules(),
+                Etudiants::getMessages()
             );
             
-            Produits::create($validated);
+            Etudiants::create($validated);
             
-            return Views::redirect(route('produits.index'));
+            return Views::redirect(route('etudiants.index'));
                 
         } catch (ValidationException $e) {
             echo "Erreur: Données invalides";
@@ -60,8 +59,8 @@ class ProduitsController extends Controller
     public function show($id)
     {
         try {
-            $item = Produits::with(['categories', 'fournisseurs', 'clients'])->findOrFail($id);
-            return Views::render('Produits.show', ['item' => $item]);
+            $item = Etudiants::with(['notes'])->findOrFail($id);
+            return Views::render('Etudiants.show', ['item' => $item]);
             
         } catch (ModelNotFoundException $e) {
             echo "Erreur: Élément non trouvé";
@@ -77,8 +76,9 @@ class ProduitsController extends Controller
     public function edit($id)
     {
         try {
-            $item = Produits::with(['categories', 'fournisseurs', 'clients'])->findOrFail($id);
-            return Views::render('Produits.edit', ['item' => $item]);
+            $item = Etudiants::with(['notes'])->findOrFail($id);
+            $notes = Notes::all();
+            return Views::render('Etudiants.edit', ['item' => $item, 'notes'=>$notes]);
             
         } catch (ModelNotFoundException $e) {
             echo "Erreur: Élément non trouvé";
@@ -100,8 +100,8 @@ class ProduitsController extends Controller
         // echo "</pre>";
         
         $validated = $request->validate(
-            Produits::getRules(),
-            Produits::getMessages()
+            Etudiants::getRules(),
+            Etudiants::getMessages()
         );
         
         // Debug: Afficher les données validées (décommenter si nécessaire)
@@ -109,7 +109,7 @@ class ProduitsController extends Controller
         // print_r($validated);
         // echo "</pre>";
         
-        $item = Produits::findOrFail($id);
+        $item = Etudiants::findOrFail($id);
         
         // Debug: Afficher l'état avant mise à jour (décommenter si nécessaire)
         // echo "<pre>Avant mise à jour:\n";
@@ -119,11 +119,11 @@ class ProduitsController extends Controller
         $item->update($validated);
         
         // Debug: Afficher l'état après mise à jour (décommenter si nécessaire)
-        // echo "<pre>Après mise à jousr:\n";
+        // echo "<pre>Après mise à jour:\n";
         // print_r($item->fresh()->toArray());
         // echo "</pre>";
         
-        return Views::redirect(route('produits.index'));
+        return Views::redirect(route('etudiants.index'));
             
     } catch (ValidationException $e) {
         // Debug: Afficher les erreurs de validation (décommenter si nécessaire)
@@ -154,10 +154,10 @@ class ProduitsController extends Controller
     public function destroy($id)
     {
         try {
-            $item = Produits::findOrFail($id);
+            $item = Etudiants::findOrFail($id);
             $item->delete();
             
-            return Views::redirect(route('produits.index'));
+            return Views::redirect(route('etudiants.index'));
                 
         } catch (ModelNotFoundException $e) {
             echo "Erreur: Élément non trouvé";

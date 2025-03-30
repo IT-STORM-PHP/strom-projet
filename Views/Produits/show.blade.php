@@ -11,8 +11,8 @@
             <table class="table">
                 <tbody>
                     <tr>
-    <th>Id</th>
-    <td>{{ $item->id }}</td>
+    <th>Id produits will</th>
+    <td>{{ $item->id_produits_will }}</td>
 </tr>
 <tr>
     <th>Nom</th>

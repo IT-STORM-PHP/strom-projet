@@ -19,7 +19,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>Id produits will</th>
 <th>Nom</th>
 <th>Prix</th>
 <th>Stock</th>
@@ -33,15 +33,30 @@
             <tbody>
                 <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td><?php echo e($item->id); ?></td>
+                        <td><?php echo e($item->id_produits_will); ?></td>
 <td><?php echo e($item->nom); ?></td>
 <td><?php echo e($item->prix); ?></td>
 <td><?php echo e($item->stock); ?></td>
 <td><?php echo e($item->categorie_id); ?></td>
 <td><?php echo e($item->fournisseur_id); ?></td>
 <td><?php echo e($item->client_favori_id); ?></td>
-
-                        <td>
+<td>
+        <div class='btn-group'>
+            <a href="<?php echo e(route('produits.edit', ['id'=>$item->id_produits_will])); ?>" 
+               class='btn btn-sm btn-warning'>
+                Modifier
+            </a>
+            <form action="<?php echo e(url('produits/del/' . $item->id_produits_will)); ?>" 
+                  method='POST'>
+                <button type='submit' 
+                        class='btn btn-sm btn-danger'
+                        onclick="return confirm('Supprimer cet élément ?')">
+                    Supprimer
+                </button>
+            </form>
+        </div>
+    </td>
+                        <!--<td>
                             <div class="btn-group">
                                 <a href="<?php echo e(route('produits.edit', ['id'=>$item->id])); ?>" 
                                    class="btn btn-sm btn-warning">
@@ -56,7 +71,7 @@
                                     </button>
                                 </form>
                             </div>
-                        </td>
+                        </td> -->
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>

@@ -20,7 +20,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>Id produits will</th>
 <th>Nom</th>
 <th>Prix</th>
 <th>Stock</th>
@@ -34,15 +34,30 @@
             <tbody>
                 @foreach($items as $item)
                     <tr>
-                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->id_produits_will }}</td>
 <td>{{ $item->nom }}</td>
 <td>{{ $item->prix }}</td>
 <td>{{ $item->stock }}</td>
 <td>{{ $item->categorie_id }}</td>
 <td>{{ $item->fournisseur_id }}</td>
 <td>{{ $item->client_favori_id }}</td>
-
-                        <td>
+<td>
+        <div class='btn-group'>
+            <a href="{{ route('produits.edit', ['id'=>$item->id_produits_will]) }}" 
+               class='btn btn-sm btn-warning'>
+                Modifier
+            </a>
+            <form action="{{ url('produits/del/' . $item->id_produits_will) }}" 
+                  method='POST'>
+                <button type='submit' 
+                        class='btn btn-sm btn-danger'
+                        onclick="return confirm('Supprimer cet élément ?')">
+                    Supprimer
+                </button>
+            </form>
+        </div>
+    </td>
+                        <!--<td>
                             <div class="btn-group">
                                 <a href="{{ route('produits.edit', ['id'=>$item->id]) }}" 
                                    class="btn btn-sm btn-warning">
@@ -57,7 +72,7 @@
                                     </button>
                                 </form>
                             </div>
-                        </td>
+                        </td> -->
                     </tr>
                 @endforeach
             </tbody>

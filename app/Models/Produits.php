@@ -15,7 +15,7 @@ class Produits extends Model
     protected $table = 'produits';
 
     // Définir la clé primaire
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_produits_will';
 
     // Champs remplissables
     protected $fillable = ['nom', 'prix', 'stock', 'categorie_id', 'fournisseur_id', 'client_favori_id'];

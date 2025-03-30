@@ -6,6 +6,10 @@
 
     <form action="<?php echo e(url('produits/update/' .$item->id)); ?>" method="POST">
         <div class='form-group'>
+    <label for='id_produits_will'>Id produits will</label>
+    <input type='number' name='id_produits_will' id='id_produits_will' class='form-control' value='<?php echo e($item->id_produits_will); ?>'>
+</div>
+<div class='form-group'>
     <label for='nom'>Nom</label>
     <input type='text' name='nom' id='nom' class='form-control' value='<?php echo e($item->nom); ?>'>
 </div>
