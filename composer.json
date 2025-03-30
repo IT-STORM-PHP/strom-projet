@@ -14,7 +14,8 @@
     "illuminate/routing": "^12.2",
     "illuminate/session": "^12.2",
     "illuminate/log": "^12.2",
-    "illuminate/config": "^12.2"
+    "illuminate/config": "^12.2",
+    "illuminate/pagination": "^12.4"
   },
   "autoload": {
     "psr-4": {

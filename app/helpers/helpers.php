@@ -15,18 +15,40 @@ if (!function_exists('route')) {
      * @param array $params Paramètres de la route.
      * @return string URL générée.
      */
-    function route(string $name, array $params = []): string
-    {
-        // Récupérer l'URI de la route nommée
-        $uri = Route::route($name);
-
-        // Remplacer les paramètres dynamiques dans l'URI
-        foreach ($params as $key => $value) {
-            $uri = str_replace('{' . $key . '}', $value, $uri);
+    if (!function_exists('route')) {
+        function route(string $name, $parameters = [], bool $absolute = true): string {
+            // Convertit les paramètres en tableau si nécessaire
+            $params = is_array($parameters) ? $parameters : ['id' => $parameters];
+            
+            try {
+                // Récupère l'URI de base
+                $uri = Route::route($name, $params);
+                
+                // Construction de l'URL complète si demandé
+                if ($absolute) {
+                    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+                    $scheme = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                    return $scheme . $host . '/' . ltrim($uri, '/');
+                }
+                
+                return $uri;
+                
+            } catch (\Exception $e) {
+                // Mode développement - affiche les détails
+                if (($_ENV['APP_ENV'] ?? 'production') === 'development') {
+                    dd([
+                        'error' => $e->getMessage(),
+                        'route' => $name,
+                        'parameters' => $params,
+                        'available_routes' => Route::getNamedRoutes()
+                    ]);
+                }
+                
+                // Mode production - log et retourne une URL par défaut
+                error_log("Route error [{$name}]: " . $e->getMessage());
+                return '/';
+            }
         }
-
-        // Retourner l'URL complète
-        return '//' . $_SERVER['HTTP_HOST'] . $uri;
     }
 }
 

@@ -7,49 +7,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class Livres extends Model
+class Fournisseurs extends Model
 {
     use HasFactory;
 
     // Définir le nom de la table
-    protected $table = 'livres';
+    protected $table = 'fournisseurs';
 
     // Définir la clé primaire
     protected $primaryKey = 'id';
 
     // Champs remplissables
-    protected $fillable = ['titre', 'auteur_id', 'isbn'];
+    protected $fillable = ['nom_entreprise', 'contact', 'telephone'];
 
     // Timestamps
-    public $timestamps = true;
+    public $timestamps = false;
 
     // Règles de validation (protégées)
     protected static $rules = array (
-  'titre' => 'string|required',
-  'auteur_id' => 'integer|required',
-  'isbn' => 'string|required',
-  'created_at' => 'nullable',
-  'updated_at' => 'nullable',
+  'nom_entreprise' => 'string|required',
+  'contact' => 'string|nullable',
+  'telephone' => 'string|nullable',
 );
 
     // Messages d'erreur personnalisés (protégés)
     protected static $messages = array (
-  'titre.string' => 'Le champ titre doit être une chaîne de caractères.',
-  'titre.required' => 'Le champ titre est obligatoire.',
-  'auteur_id.integer' => 'Le champ auteur_id doit être un entier.',
-  'auteur_id.required' => 'Le champ auteur_id est obligatoire.',
-  'isbn.string' => 'Le champ isbn doit être une chaîne de caractères.',
-  'isbn.required' => 'Le champ isbn est obligatoire.',
+  'nom_entreprise.string' => 'Le champ nom_entreprise doit être une chaîne de caractères.',
+  'nom_entreprise.required' => 'Le champ nom_entreprise est obligatoire.',
+  'contact.string' => 'Le champ contact doit être une chaîne de caractères.',
+  'telephone.string' => 'Le champ telephone doit être une chaîne de caractères.',
 );
 
     // Relations
 
-    public function auteurs()
-    {
-        return $this->belongsTo(Auteurs::class, 'auteur');
-    }
-
-    
     /**
      * Récupérer les règles de validation.
      */

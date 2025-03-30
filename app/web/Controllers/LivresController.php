@@ -12,127 +12,129 @@ use Illuminate\Support\Facades\Log;
 
 use App\Models\Auteurs;
 
+
 class LivresController extends Controller
 {
-    /**
-     * Afficher la liste des ressources.
-     */
     public function index()
     {
         try {
-            $items = Livres::with(['auteurs'])->get();
+            $items = Livres::with(['auteurs', 'auteurs'])->paginate(10);
             return Views::render('Livres.index', ['items' => $items]);
+            
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la récupération des ressources : ' . $e->getMessage());
-            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
+            Log::error('Index error: ' . $e->getMessage());
+            echo "Erreur: Impossible de charger les données";
+            return;
         }
     }
 
-    /**
-     * Afficher le formulaire de création d'une nouvelle ressource.
-     */
     public function create()
     {
         return Views::render('Livres.create');
     }
 
-    /**
-     * Stocker une nouvelle ressource dans la base de données.
-     */
     public function store(Request $request)
     {
         try {
-            // Valider les données de la requête
-            $validatedData = $request->validate(Livres::getRules(), Livres::getMessages());
-
-            // Créer une nouvelle entité avec les données validées
-            $item = Livres::create($validatedData);
-
-            // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Livres.index'))->with('success', 'Création réussie');
+            $validated = $request->validate(
+                Livres::getRules(),
+                Livres::getMessages()
+            );
+            
+            Livres::create($validated);
+            
+            return Views::redirect(route('livres.index'));
+                
         } catch (ValidationException $e) {
-            // Rediriger avec les erreurs de validation
-            return Views::redirect()->back()->withErrors($e->errors())->withInput();
+            echo "Erreur: Données invalides";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la création de la ressource : ' . $e->getMessage());
-            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
+            Log::error('Store error: ' . $e->getMessage());
+            echo "Erreur: Impossible de créer l'élément";
+            return;
         }
     }
 
-    /**
-     * Afficher une ressource spécifique.
-     */
     public function show($id)
     {
         try {
-            $item = Livres::with(['auteurs'])->findOrFail($id);
+            $item = Livres::with(['auteurs', 'auteurs'])->findOrFail($id);
             return Views::render('Livres.show', ['item' => $item]);
+            
         } catch (ModelNotFoundException $e) {
-            return Views::redirect()->back()->with('error', 'Ressource non trouvée');
+            echo "Erreur: Élément non trouvé";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la récupération de la ressource : ' . $e->getMessage());
-            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
+            Log::error('Show error: ' . $e->getMessage());
+            echo "Erreur: Impossible d'afficher l'élément";
+            return;
         }
     }
 
-    /**
-     * Afficher le formulaire de modification d'une ressource.
-     */
     public function edit($id)
     {
         try {
-            $item = Livres::with(['auteurs'])->findOrFail($id);
+            $item = Livres::with(['auteurs', 'auteurs'])->findOrFail($id);
             return Views::render('Livres.edit', ['item' => $item]);
+            
         } catch (ModelNotFoundException $e) {
-            return Views::redirect()->back()->with('error', 'Ressource non trouvée');
+            echo "Erreur: Élément non trouvé";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la récupération de la ressource : ' . $e->getMessage());
-            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
+            Log::error('Edit error: ' . $e->getMessage());
+            echo "Erreur: Impossible d'éditer l'élément";
+            return;
         }
     }
 
-    /**
-     * Mettre à jour une ressource dans la base de données.
-     */
     public function update(Request $request, $id)
     {
         try {
-            // Valider les données de la requête
-            $validatedData = $request->validate(Livres::getRules(), Livres::getMessages());
-
-            // Trouver l'entité à mettre à jour
+            $validated = $request->validate(
+                Livres::getRules(), 
+                Livres::getMessages()
+            );
+            
+            
             $item = Livres::findOrFail($id);
-
-            // Mettre à jour l'entité avec les données validées
-            $item->update($validatedData);
-
-            // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Livres.index'))->with('success', 'Mise à jour réussie');
+            $item->update($validated);
+            
+            echo "modifié";
+                
         } catch (ValidationException $e) {
-            // Rediriger avec les erreurs de validation
-            return Views::redirect()->back()->withErrors($e->errors())->withInput();
+            echo "Erreur: Données invalides";
+            return;
+                
         } catch (ModelNotFoundException $e) {
-            return Views::redirect()->back()->with('error', 'Ressource non trouvée');
+            echo "Erreur: Élément non trouvé";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la mise à jour de la ressource : ' . $e->getMessage());
-            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
+            Log::error('Update error: ' . $e->getMessage());
+            echo "Erreur: Impossible de mettre à jour" . $e->getMessage();
+            return;
         }
     }
 
-    /**
-     * Supprimer une ressource de la base de données.
-     */
     public function destroy($id)
     {
         try {
             $item = Livres::findOrFail($id);
             $item->delete();
-            return Views::redirect(route('Livres.index'))->with('success', 'Suppression réussie');
+            
+            return Views::redirect(route('livres.index'));
+                
         } catch (ModelNotFoundException $e) {
-            return Views::redirect()->back()->with('error', 'Ressource non trouvée');
+            echo "Erreur: Élément non trouvé";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la suppression de la ressource : ' . $e->getMessage());
-            return Views::redirect()->back()->with('error', 'Une erreur est survenue');
+            Log::error('Delete error: ' . $e->getMessage());
+            echo "Erreur: Impossible de supprimer";
+            return;
         }
     }
 }

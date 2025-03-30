@@ -7,7 +7,6 @@
         <p class="lead">Une erreur s'est produite lors du traitement de votre requête.</p>
         <hr class="my-4">
         <p>Veuillez réessayer ou contacter l'administrateur si le problème persiste.</p>
-        g
     </div>
 </div>
 <?php $__env->stopSection(); ?>

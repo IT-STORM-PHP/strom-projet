@@ -40,7 +40,7 @@
         </form>
         
 
-        <a href="<?php echo e(route('courses.destroy')); ?>" class="btn btn-secondary mt-3">Aller à la page d'index</a>
+        <a href="<?php echo e(route('user.index')); ?>" class="btn btn-secondary mt-3">Aller à la page d'index</a>
     </div>
 <?php $__env->stopSection(); ?>
 

@@ -7,49 +7,42 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class Livres extends Model
+class Clients extends Model
 {
     use HasFactory;
 
     // Définir le nom de la table
-    protected $table = 'livres';
+    protected $table = 'clients';
 
     // Définir la clé primaire
     protected $primaryKey = 'id';
 
     // Champs remplissables
-    protected $fillable = ['titre', 'auteur_id', 'isbn'];
+    protected $fillable = ['prenom', 'nom', 'email', 'date_inscription'];
 
     // Timestamps
-    public $timestamps = true;
+    public $timestamps = false;
 
     // Règles de validation (protégées)
     protected static $rules = array (
-  'titre' => 'string|required',
-  'auteur_id' => 'integer|required',
-  'isbn' => 'string|required',
-  'created_at' => 'nullable',
-  'updated_at' => 'nullable',
+  'prenom' => 'string|required',
+  'nom' => 'string|required',
+  'email' => 'string|nullable',
+  'date_inscription' => 'date|nullable',
 );
 
     // Messages d'erreur personnalisés (protégés)
     protected static $messages = array (
-  'titre.string' => 'Le champ titre doit être une chaîne de caractères.',
-  'titre.required' => 'Le champ titre est obligatoire.',
-  'auteur_id.integer' => 'Le champ auteur_id doit être un entier.',
-  'auteur_id.required' => 'Le champ auteur_id est obligatoire.',
-  'isbn.string' => 'Le champ isbn doit être une chaîne de caractères.',
-  'isbn.required' => 'Le champ isbn est obligatoire.',
+  'prenom.string' => 'Le champ prenom doit être une chaîne de caractères.',
+  'prenom.required' => 'Le champ prenom est obligatoire.',
+  'nom.string' => 'Le champ nom doit être une chaîne de caractères.',
+  'nom.required' => 'Le champ nom est obligatoire.',
+  'email.string' => 'Le champ email doit être une chaîne de caractères.',
+  'date_inscription.date' => 'Le champ date_inscription doit être une date valide.',
 );
 
     // Relations
 
-    public function auteurs()
-    {
-        return $this->belongsTo(Auteurs::class, 'auteur');
-    }
-
-    
     /**
      * Récupérer les règles de validation.
      */

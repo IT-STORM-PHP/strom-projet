@@ -15,131 +15,126 @@ use App\Models\Migrations;
 
 class TachesController extends Controller
 {
-    /**
-     * Afficher la liste des ressources.
-     */
     public function index()
     {
         try {
             $items = Taches::with(['utilisateurs', 'migrations'])->get();
-            return Views::render('taches.index', ['items' => $items]);
+            return Views::render('Taches.index', ['items' => $items]);
+            //var_dump(compact('items'));
+            
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la récupération des ressources : ' . $e->getMessage());
-            return Views::redirect('google.com'); // Redirection vers une URL externe en cas d'erreur
+            Log::error('Index error: ' . $e->getMessage());
+            echo "Erreur: Impossible de charger les données";
+            return;
         }
     }
 
-    /**
-     * Afficher le formulaire de création d'une nouvelle ressource.
-     */
     public function create()
     {
         return Views::render('Taches.create');
     }
 
-    /**
-     * Stocker une nouvelle ressource dans la base de données.
-     */
     public function store(Request $request)
     {
         try {
-            // Valider les données de la requête
-            $validatedData = $request->validate(Taches::getRules(), Taches::getMessages());
-
-            // Créer une nouvelle entité avec les données validées
-            $item = Taches::create($validatedData);
-
-            // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Taches.index'))->with('success', 'Création réussie');
+            $validated = $request->validate(
+                Taches::getRules(),
+                Taches::getMessages()
+            );
+            
+            Taches::create($validated);
+            
+            return Views::redirect(route('taches.index',));
+                
         } catch (ValidationException $e) {
-            // Rediriger avec les erreurs de validation
-            return Views::back()->withErrors($e->errors())->withInput();
+            echo "Erreur: Données invalides";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la création de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la création');
+            Log::error('Store error: ' . $e->getMessage());
+            echo "Erreur: Impossible de créer l'élément";
+            return;
         }
     }
 
-    /**
-     * Afficher une ressource spécifique.
-     */
     public function show($id)
     {
         try {
             $item = Taches::with(['utilisateurs', 'migrations'])->findOrFail($id);
-            return Views::render('taches.show', ['item' => $item]);
+            return Views::render('Taches.show', ['item' => $item]);
+            
         } catch (ModelNotFoundException $e) {
-            Log::error('Ressource non trouvée : ' . $e->getMessage());
-            return Views::back()->with('error', 'Ressource non trouvée');
+            echo "Erreur: Élément non trouvé";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la récupération de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la récupération');
+            Log::error('Show error: ' . $e->getMessage());
+            echo "Erreur: Impossible d'afficher l'élément";
+            return;
         }
     }
 
-    /**
-     * Afficher le formulaire de modification d'une ressource.
-     */
     public function edit($id)
     {
         try {
             $item = Taches::with(['utilisateurs', 'migrations'])->findOrFail($id);
             return Views::render('Taches.edit', ['item' => $item]);
+            
         } catch (ModelNotFoundException $e) {
-            Log::error('Ressource non trouvée : ' . $e->getMessage());
-            return Views::back()->with('error', 'Ressource non trouvée');
+            echo "Erreur: Élément non trouvé";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la récupération de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la récupération');
+            Log::error('Edit error: ' . $e->getMessage());
+            echo "Erreur: Impossible d'éditer l'élément";
+            return;
         }
     }
 
-    /**
-     * Mettre à jour une ressource dans la base de données.
-     */
     public function update(Request $request, $id)
     {
         try {
-            // Valider les données de la requête
-            $validatedData = $request->validate(Taches::getRules(), Taches::getMessages());
+            $validated = $request->validate(
 
-            // Trouver l'entité à mettre à jour
+                Taches::getMessages()
+            );
+            
             $item = Taches::findOrFail($id);
-
-            // Mettre à jour l'entité avec les données validées
-            $item->update($validatedData);
-
-            // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Taches.index'))->with('success', 'Mise à jour réussie');
+            $item->update($validated);
+            
+            return Views::redirect(route('taches.index'));
+                
         } catch (ValidationException $e) {
-            // Rediriger avec les erreurs de validation
-            return Views::back()->withErrors($e->errors())->withInput();
+            echo "Erreur: Données invalides";
+            return;
+                
         } catch (ModelNotFoundException $e) {
-            Log::error('Ressource non trouvée : ' . $e->getMessage());
-            return Views::back()->with('error', 'Ressource non trouvée');
+            echo "Erreur: Élément non trouvé";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la mise à jour de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la mise à jour');
+            Log::error('Update error: ' . $e->getMessage());
+            echo "Erreur: Impossible de mettre à jour" . $e->getMessage();
+            return;
         }
     }
 
-    /**
-     * Supprimer une ressource de la base de données.
-     */
     public function destroy($id)
     {
         try {
             $item = Taches::findOrFail($id);
             $item->delete();
-
-            // Rediriger vers la liste des ressources avec un message de succès
-            return Views::redirect(route('Taches.index'))->with('success', 'Suppression réussie');
+            
+            return Views::redirect(route('taches.index'));
+                
         } catch (ModelNotFoundException $e) {
-            Log::error('Ressource non trouvée : ' . $e->getMessage());
-            return Views::back()->with('error', 'Ressource non trouvée');
+            echo "Erreur: Élément non trouvé";
+            return;
+                
         } catch (\Exception $e) {
-            Log::error('Erreur lors de la suppression de la ressource : ' . $e->getMessage());
-            return Views::back()->with('error', 'Une erreur est survenue lors de la suppression');
+            Log::error('Delete error: ' . $e->getMessage());
+            echo "Erreur: Impossible de supprimer";
+            return;
         }
     }
 }
