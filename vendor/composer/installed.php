@@ -3,7 +3,7 @@
         'name' => 'storm_bin/project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '508d536aba49ec9f2ef9648255f38cdd41a9cf28',
+        'reference' => '654949338ce85124e31f919350ff1602dc587dc7',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -427,8 +427,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '3.0.0',
+                0 => '3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -455,10 +455,19 @@
                 0 => '*',
             ),
         ),
+        'storm_bin/package' => array(
+            'pretty_version' => 'v1.1.0',
+            'version' => '1.1.0.0',
+            'reference' => 'c2cb873ab6cee5aabc84ed97cdd836f18fff7d12',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../storm_bin/package',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'storm_bin/project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '508d536aba49ec9f2ef9648255f38cdd41a9cf28',
+            'reference' => '654949338ce85124e31f919350ff1602dc587dc7',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

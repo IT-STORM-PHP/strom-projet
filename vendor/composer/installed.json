@@ -2958,6 +2958,73 @@
             "install-path": "../ralouphie/getallheaders"
         },
         {
+            "name": "storm_bin/package",
+            "version": "v1.1.0",
+            "version_normalized": "1.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IT-STORM-PHP/storm-package.git",
+                "reference": "c2cb873ab6cee5aabc84ed97cdd836f18fff7d12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IT-STORM-PHP/storm-package/zipball/c2cb873ab6cee5aabc84ed97cdd836f18fff7d12",
+                "reference": "c2cb873ab6cee5aabc84ed97cdd836f18fff7d12",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "^12.2",
+                "illuminate/database": "^12.0",
+                "illuminate/events": "^12.0",
+                "illuminate/filesystem": "^12.0",
+                "illuminate/http": "^12.2",
+                "illuminate/log": "^12.2",
+                "illuminate/pagination": "^12.4",
+                "illuminate/routing": "^12.2",
+                "illuminate/view": "^12.0",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpunit/phpunit": "^10.0",
+                "symfony/var-dumper": "^6.0"
+            },
+            "time": "2025-05-08T11:44:10+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "StormBin\\Package\\": "framework/src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Storm",
+                    "email": "godwilloussou@gmail.com"
+                }
+            ],
+            "description": "Ceci est un framework générant du code inspiré de laravel pour aider les developpeur à créer des applications web et qui utilise au paravant Laravel.",
+            "keywords": [
+                "framework",
+                "laravel",
+                "storm"
+            ],
+            "support": {
+                "issues": "https://github.com/IT-STORM-PHP/strom-projet",
+                "source": "https://github.com/IT-STORM-PHP/strom-projet"
+            },
+            "install-path": "../storm_bin/package"
+        },
+        {
             "name": "symfony/clock",
             "version": "v7.2.0",
             "version_normalized": "7.2.0.0",
