@@ -1,5 +1,5 @@
 {
-  "name": "storm_bin/project",
+  "name": "storm_bin/project-skeleton",
   "type": "project",
   "keywords": ["framework", "storm", "laravel", "mvc", "api", "illuminate"],
   "description": "Storm Framework - Un framework PHP modulaire et léger, construit avec les composants Illuminate (Laravel). Fournit une structure MVC flexible pour les applications web et API.",
