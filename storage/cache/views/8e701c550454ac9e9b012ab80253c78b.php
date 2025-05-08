@@ -1,1 +1,0 @@
-<?php /**PATH /mnt/wwn-0x5000c5008073af77-part1/STORM_FRAMEWORK/usage/tests/storm/Views/Courses/show.blade.php ENDPATH**/ ?>
